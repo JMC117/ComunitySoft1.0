@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComunidadProyectoEditDlg" widgetVar="ComunidadProyectoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditComunidadProyectoTitle}">
+            <h:form id="ComunidadProyectoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{comunidadProyectoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditComunidadProyectoLabel_comunidadfk}" for="comunidadfk" />
+                        <p:inputText id="comunidadfk" value="#{comunidadProyectoController.selected.comunidadfk}" title="#{bundle.EditComunidadProyectoTitle_comunidadfk}" required="true" requiredMessage="#{bundle.EditComunidadProyectoRequiredMessage_comunidadfk}"/>
+                        <p:outputLabel value="#{bundle.EditComunidadProyectoLabel_comunidad}" for="comunidad" />
+                        <p:selectOneMenu id="comunidad" value="#{comunidadProyectoController.selected.comunidad}" required="true" requiredMessage="#{bundle.EditComunidadProyectoRequiredMessage_comunidad}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{comunidadController.itemsAvailableSelectOne}"
+                                           var="comunidadItem"
+                                           itemValue="#{comunidadItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditComunidadProyectoLabel_proyectofk}" for="proyectofk" />
+                        <p:selectOneMenu id="proyectofk" value="#{comunidadProyectoController.selected.proyectofk}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proyectoController.itemsAvailableSelectOne}"
+                                           var="proyectofkItem"
+                                           itemValue="#{proyectofkItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{comunidadProyectoController.update}" value="#{bundle.Save}" update="display,:ComunidadProyectoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ComunidadProyectoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ComunidadProyectoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

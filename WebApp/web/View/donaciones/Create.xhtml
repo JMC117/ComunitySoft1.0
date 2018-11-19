@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DonacionesCreateDlg" widgetVar="DonacionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDonacionesTitle}">
+            <h:form id="DonacionesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{donacionesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDonacionesLabel_donacionesPK_usuariofk}" for="donacionesPK_usuariofk" />
+                        <p:inputText id="donacionesPK_usuariofk" value="#{donacionesController.selected.donacionesPK.usuariofk}" title="#{bundle.CreateDonacionesTitle_donacionesPK_usuariofk}" required="true" requiredMessage="#{bundle.CreateDonacionesRequiredMessage_donacionesPK_usuariofk}"/>
+                        <p:outputLabel value="#{bundle.CreateDonacionesLabel_donacionesPK_actividadfk}" for="donacionesPK_actividadfk" />
+                        <p:inputText id="donacionesPK_actividadfk" value="#{donacionesController.selected.donacionesPK.actividadfk}" title="#{bundle.CreateDonacionesTitle_donacionesPK_actividadfk}" required="true" requiredMessage="#{bundle.CreateDonacionesRequiredMessage_donacionesPK_actividadfk}"/>
+                        <p:outputLabel value="#{bundle.CreateDonacionesLabel_recurso}" for="recurso" />
+                        <p:inputText id="recurso" value="#{donacionesController.selected.recurso}" title="#{bundle.CreateDonacionesTitle_recurso}" />
+                        <p:outputLabel value="#{bundle.CreateDonacionesLabel_tipoRecurso}" for="tipoRecurso" />
+                        <p:inputText id="tipoRecurso" value="#{donacionesController.selected.tipoRecurso}" title="#{bundle.CreateDonacionesTitle_tipoRecurso}" />
+                        <p:outputLabel value="#{bundle.CreateDonacionesLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{donacionesController.selected.descripcion}" title="#{bundle.CreateDonacionesTitle_descripcion}" />
+                        <p:outputLabel value="#{bundle.CreateDonacionesLabel_actividad}" for="actividad" />
+                        <p:selectOneMenu id="actividad" value="#{donacionesController.selected.actividad}" required="true" requiredMessage="#{bundle.EditDonacionesRequiredMessage_actividad}">
+                            <f:selectItems value="#{actividadController.itemsAvailableSelectOne}"
+                                           var="actividadItem"
+                                           itemValue="#{actividadItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDonacionesLabel_usuario}" for="usuario" />
+                        <p:selectOneMenu id="usuario" value="#{donacionesController.selected.usuario}" required="true" requiredMessage="#{bundle.EditDonacionesRequiredMessage_usuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioItem"
+                                           itemValue="#{usuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{donacionesController.create}" value="#{bundle.Save}" update="display,:DonacionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'DonacionesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DonacionesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
